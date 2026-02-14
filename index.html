@@ -5,132 +5,185 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Zyra Graphics</title>
 <style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #000;
-  color: #fff;
-  overflow-x: hidden;
+/* ===== Body ===== */
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#000;
+  color:#fff;
+  overflow-x:hidden;
+  cursor:none; /* custom cursor */
 }
 
-/* Hero Section */
-.hero {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  text-align: center;
-  padding: 20px;
+/* ===== Hero Section ===== */
+.hero{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  text-align:center;
+  padding:20px;
+  overflow:hidden;
 }
-.hero h1 {
-  font-size: 2.8rem;
-  color: #fff;
-  text-shadow: 0 0 10px #fff;
-  animation: fadeIn 1.5s ease forwards;
+.hero h1{
+  font-size:2.8rem;
+  text-shadow:0 0 15px #fff;
+  opacity:0;
+  animation:heroText 1.5s ease forwards;
 }
-.hero p {
-  font-size: 1rem;
-  color: #ccc;
-  margin-top: 10px;
-  animation: fadeIn 2s ease forwards;
-}
-
-/* Buttons */
-.buttons {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 30px;
-  flex-wrap: wrap;
-}
-.buttons button {
-  padding: 12px 20px;
-  background: transparent;
-  border: 2px solid #fff;
-  color: #fff;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-.buttons button:hover {
-  background: #fff;
-  color: #000;
+.hero p{
+  font-size:1rem;
+  color:#ccc;
+  margin-top:10px;
+  opacity:0;
+  animation:heroText 2s ease forwards;
 }
 
-/* Gallery */
-.gallery {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  margin: 40px 10px;
+/* ===== Hero Gradient Background + Particles ===== */
+.hero::before{
+  content:"";
+  position:absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:linear-gradient(-45deg,#ff3cac,#784ba0,#2b86c5,#ff3cac);
+  background-size:400% 400%;
+  animation:gradientBG 15s ease infinite;
+  z-index:-2;
 }
-.gallery img {
-  width: 45%;
-  max-width: 200px;
-  border-radius: 5px;
-  transition: transform 0.3s ease;
-}
-.gallery img:hover {
-  transform: scale(1.05);
-}
-
-/* About */
-.about {
-  text-align: center;
-  margin: 50px 20px;
-  font-size: 0.95rem;
-  color: #ccc;
+.particle{
+  position:absolute;
+  width:6px; height:6px;
+  background:#fff;
+  border-radius:50%;
+  opacity:0.6;
+  animation:float 10s linear infinite;
 }
 
-/* Social Buttons with icons */
-.social {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+/* ===== Section Buttons ===== */
+.buttons{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-top:25px;
+  flex-wrap:wrap;
 }
-.social a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 50px;
-  height: 50px;
-  background: #25d366; /* default WhatsApp green */
-  border-radius: 50%;
-  text-decoration: none;
-  transition: all 0.3s ease;
+.buttons button{
+  padding:10px 18px;
+  background:transparent;
+  border:2px solid #fff;
+  color:#fff;
+  cursor:pointer;
+  transition:0.3s;
 }
-.social a.instagram {
-  background: #E1306C; /* Instagram color */
-}
-.social a img {
-  width: 25px;
-  height: 25px;
-  filter: invert(1);
-}
-.social a:hover {
-  transform: scale(1.2);
+.buttons button:hover{
+  background:#fff;
+  color:#000;
+  transform:scale(1.1);
 }
 
-/* Animations */
-@keyframes fadeIn {
-  0% {opacity: 0; transform: translateY(20px);}
-  100% {opacity: 1; transform: translateY(0);}
+/* ===== Gallery ===== */
+.gallery{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
+  margin:30px 10px;
+}
+.gallery img{
+  width:45%;
+  max-width:180px;
+  border-radius:5px;
+  transition:transform 0.3s ease, box-shadow 0.3s ease;
+  opacity:0;
+}
+.gallery img.show{
+  animation:imgFade 0.8s forwards;
+}
+.gallery img:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 15px #fff;
 }
 
-@media(min-width: 768px){
-  .gallery img{
-    width: 180px;
-  }
-  .hero h1{
-    font-size: 3.5rem;
-  }
-  .hero p{
-    font-size: 1.2rem;
-  }
+/* ===== About ===== */
+.about{
+  text-align:center;
+  margin:40px 20px;
+  font-size:0.95rem;
+  color:#ccc;
+}
+
+/* ===== Social Icons ===== */
+.social{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  z-index:999;
+}
+.social a{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:50px;
+  height:50px;
+  background:#25d366;
+  border-radius:50%;
+  text-decoration:none;
+  transition:0.3s;
+}
+.social a.instagram{background:#E1306C;}
+.social a img{
+  width:25px;
+  height:25px;
+  filter:invert(1);
+}
+.social a:hover{
+  transform:scale(1.2);
+  box-shadow:0 0 15px #fff;
+}
+
+/* ===== Custom Cursor ===== */
+.cursor{
+  position:fixed;
+  top:0; left:0;
+  width:15px; height:15px;
+  border-radius:50%;
+  background:#fff;
+  pointer-events:none;
+  transform:translate(-50%,-50%);
+  transition:transform 0.1s ease;
+  z-index:9999;
+}
+
+/* ===== Animations ===== */
+@keyframes heroText{
+  0%{opacity:0; transform:translateY(20px);}
+  100%{opacity:1; transform:translateY(0);}
+}
+@keyframes gradientBG{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+@keyframes float{
+  0%{transform:translateY(0) translateX(0);}
+  50%{transform:translateY(-30px) translateX(20px);}
+  100%{transform:translateY(0) translateX(0);}
+}
+@keyframes imgFade{
+  0%{opacity:0; transform:translateY(20px);}
+  100%{opacity:1; transform:translateY(0);}
+}
+
+/* ===== Responsive ===== */
+@media(min-width:768px){
+  .gallery img{width:160px;}
+  .hero h1{font-size:3.5rem;}
+  .hero p{font-size:1.2rem;}
 }
 </style>
 </head>
@@ -140,7 +193,7 @@ body {
 <div class="hero">
   <h1>Zyra Graphics</h1>
   <p>Hi, I'm Umer — a graphic designer & web developer.</p>
-  
+
   <!-- Section Buttons -->
   <div class="buttons">
     <button onclick="showSection('thumbnails')">Thumbnails</button>
@@ -159,7 +212,7 @@ body {
   <p>We create visuals that move. Professional posters, logos, and creative designs for brands & clients.</p>
 </div>
 
-<!-- Social Buttons -->
+<!-- Social Icons -->
 <div class="social">
   <a href="https://wa.me/7385009275" target="_blank">
     <img src="icons/whatsapp.svg" alt="WhatsApp">
@@ -169,29 +222,49 @@ body {
   </a>
 </div>
 
-<script>
-// Single images folder
-const gallery = document.getElementById('gallery');
+<!-- Custom Cursor -->
+<div class="cursor" id="cursor"></div>
 
-// Sections mapping (5 images each)
+<script>
+// Gallery Sections
+const gallery = document.getElementById('gallery');
 const sections = {
-  thumbnails: [1,2,3,4,5],
-  roaster:    [6,7,8,9,10],
-  posters:    [11,12,13,14,15],
-  logos:      [16,17,18,19,20]
+  thumbnails:[1,2,3,4,5],
+  roaster:[6,7,8,9,10],
+  posters:[11,12,13,14,15],
+  logos:[16,17,18,19,20]
 };
 
-// Function to show selected section
-function showSection(sectionName){
-  gallery.innerHTML = '';
-  sections[sectionName].forEach(i => {
-    const img = document.createElement('img');
-    img.src = `images/${i}.jpg`; // single images folder
+// Show section
+function showSection(section){
+  gallery.innerHTML='';
+  sections[section].forEach(i=>{
+    const img=document.createElement('img');
+    img.src=`images/${i}.jpg`;
+    img.classList.add('show');
     gallery.appendChild(img);
   });
-  window.scrollTo({top: gallery.offsetTop, behavior: 'smooth'});
+  window.scrollTo({top:gallery.offsetTop, behavior:'smooth'});
+}
+
+// Custom Cursor
+const cursor=document.getElementById('cursor');
+document.addEventListener('mousemove',e=>{
+  cursor.style.transform=`translate(${e.clientX}px, ${e.clientY}px)`;
+});
+
+// Floating Particles in Hero
+for(let i=0;i<40;i++){
+  let p=document.createElement('div');
+  p.classList.add('particle');
+  p.style.top=Math.random()*100+'%';
+  p.style.left=Math.random()*100+'%';
+  p.style.width=2+Math.random()*5+'px';
+  p.style.height=2+Math.random()*5+'px';
+  p.style.animationDuration=5+Math.random()*10+'s';
+  document.querySelector('.hero').appendChild(p);
 }
 </script>
 
 </body>
-</html></html>
+</html>
