@@ -1,1 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Zyra Graphics</title>
 
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  cursor:none;
+}
+
+body{
+  background:#000;
+  color:#fff;
+  font-family:Arial, sans-serif;
+  overflow-x:hidden;
+}
+
+.cursor{
+  width:20px;
+  height:20px;
+  border:2px solid #fff;
+  border-radius:50%;
+  position:fixed;
+  pointer-events:none;
+  z-index:999;
+  transition:0.1s;
+}
+
+.hero{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  background:radial-gradient(circle at center,#111,#000);
+}
+
+.brand{
+  font-size:4rem;
+  letter-spacing:3px;
+  animation:glow 2s infinite alternate;
+}
+
+.tagline,.intro{
+  opacity:0;
+  margin-top:10px;
+}
+
+.tagline{
+  animation:slideUp 1s forwards;
+  animation-delay:1s;
+}
+
+.intro{
+  animation:slideUp 1s forwards;
+  animation-delay:2s;
+}
+
+.menu{
+  display:flex;
+  justify-content:space-around;
+  padding:100px 20px;
+}
+
+.card{
+  padding:40px 60px;
+  border:1px solid #fff;
+  transition:0.3s;
+  font-size:1.2rem;
+}
+
+.card:hover{
+  background:#fff;
+  color:#000;
+  transform:scale(1.1);
+}
+
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+  padding:50px;
+}
+
+.gallery img{
+  width:100%;
+  opacity:0;
+  transform:scale(0.8);
+  animation:reveal 0.8s forwards;
+}
+
+.whatsapp{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#25D366;
+  padding:15px 30px;
+  border-radius:50px;
+  color:#000;
+  text-decoration:none;
+  font-weight:bold;
+  animation:pulse 2s infinite;
+}
+
+@keyframes glow{
+  from{text-shadow:0 0 10px #fff;}
+  to{text-shadow:0 0 30px #00f;}
+}
+
+@keyframes slideUp{
+  to{opacity:1; transform:translateY(-10px);}
+}
+
+@keyframes reveal{
+  to{opacity:1; transform:scale(1);}
+}
+
+@keyframes pulse{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.1);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="cursor"></div>
+
+<section class="hero">
+  <h1 class="brand">Zyra Graphics</h1>
+  <p class="tagline">Visuals that move. Designs that convert.</p>
+  <p class="intro">Hi, I’m Umer — a graphic designer & web developer.</p>
+</section>
+
+<section class="menu">
+  <div class="card" onclick="openGallery('thumbnails')">Thumbnails</div>
+  <div class="card" onclick="openGallery('roaster')">Roaster Reveal</div>
+  <div class="card" onclick="openGallery('posters')">Posters</div>
+  <div class="card" onclick="openGallery('logos')">Logos</div>
+</section>
+
+<section class="gallery" id="gallery"></section>
+
+<a href="https://wa.me/917385009275" class="whatsapp">WhatsApp</a>
+
+<script>
+// Custom Cursor
+const cursor = document.querySelector(".cursor");
+document.addEventListener("mousemove", e=>{
+  cursor.style.left = e.clientX+"px";
+  cursor.style.top = e.clientY+"px";
+});
+
+// Open Gallery
+function openGallery(folder){
+  const gallery = document.getElementById("gallery");
+  gallery.innerHTML = "";
+
+  for(let i=1;i<=5;i++){
+    const img = document.createElement("img");
+    img.src = `images/${folder}/${i}.jpg`;
+    gallery.appendChild(img);
+  }
+
+  window.scrollTo({
+    top: gallery.offsetTop,
+    behavior:"smooth"
+  });
+}
+</script>
+
+</body>
+</html>
