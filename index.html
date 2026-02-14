@@ -3,16 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zyra Graphics</title>
+<title>Zyra Graphics - Pro Portfolio</title>
 <style>
-/* ===== Body ===== */
+/* ===== Basic Body ===== */
 body{
   margin:0;
   font-family:Arial,sans-serif;
   background:#000;
   color:#fff;
   overflow-x:hidden;
-  cursor:none; /* custom cursor */
+  scroll-behavior:smooth;
+  cursor:none;
 }
 
 /* ===== Hero Section ===== */
@@ -24,11 +25,11 @@ body{
   align-items:center;
   height:100vh;
   text-align:center;
-  padding:20px;
   overflow:hidden;
+  padding:20px;
 }
 .hero h1{
-  font-size:2.8rem;
+  font-size:3rem;
   text-shadow:0 0 15px #fff;
   opacity:0;
   animation:heroText 1.5s ease forwards;
@@ -41,7 +42,7 @@ body{
   animation:heroText 2s ease forwards;
 }
 
-/* ===== Hero Gradient Background + Particles ===== */
+/* Hero Gradient Background */
 .hero::before{
   content:"";
   position:absolute;
@@ -52,6 +53,8 @@ body{
   animation:gradientBG 15s ease infinite;
   z-index:-2;
 }
+
+/* Particles */
 .particle{
   position:absolute;
   width:6px; height:6px;
@@ -61,7 +64,7 @@ body{
   animation:float 10s linear infinite;
 }
 
-/* ===== Section Buttons ===== */
+/* Section Buttons */
 .buttons{
   display:flex;
   justify-content:center;
@@ -83,13 +86,13 @@ body{
   transform:scale(1.1);
 }
 
-/* ===== Gallery ===== */
+/* Gallery */
 .gallery{
   display:flex;
   flex-wrap:wrap;
   justify-content:center;
   gap:10px;
-  margin:30px 10px;
+  margin:20px 10px;
 }
 .gallery img{
   width:45%;
@@ -102,11 +105,37 @@ body{
   animation:imgFade 0.8s forwards;
 }
 .gallery img:hover{
-  transform:scale(1.05);
+  transform:scale(1.05) rotateX(2deg);
   box-shadow:0 0 15px #fff;
 }
 
-/* ===== About ===== */
+/* Lightbox */
+#lightbox{
+  position:fixed;
+  top:0; left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.9);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
+#lightbox img{
+  max-width:90%;
+  max-height:80%;
+  border-radius:5px;
+}
+#lightbox span{
+  position:absolute;
+  top:20px;
+  right:30px;
+  font-size:2rem;
+  cursor:pointer;
+  color:#fff;
+}
+
+/* About */
 .about{
   text-align:center;
   margin:40px 20px;
@@ -114,7 +143,86 @@ body{
   color:#ccc;
 }
 
-/* ===== Social Icons ===== */
+/* Testimonials */
+.testimonials{
+  margin:40px 20px;
+  overflow:hidden;
+  position:relative;
+}
+.testimonial-slide{
+  display:flex;
+  transition:transform 0.5s ease;
+}
+.testimonial{
+  min-width:100%;
+  padding:20px;
+  box-sizing:border-box;
+  text-align:center;
+  opacity:0;
+  animation:testFade 1s forwards;
+}
+.testimonial h3{margin-bottom:10px;}
+
+/* Featured Projects */
+.projects{
+  margin:40px 10px;
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:15px;
+}
+.project-card{
+  position:relative;
+  width:150px;
+  height:100px;
+  overflow:hidden;
+  border-radius:5px;
+  cursor:pointer;
+}
+.project-card img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform 0.3s;
+}
+.project-card:hover img{
+  transform:scale(1.1);
+}
+.project-overlay{
+  position:absolute;
+  bottom:0; left:0;
+  width:100%;
+  background:rgba(0,0,0,0.7);
+  color:#fff;
+  padding:5px;
+  text-align:center;
+  font-size:0.85rem;
+  opacity:0;
+  transition:opacity 0.3s;
+}
+.project-card:hover .project-overlay{
+  opacity:1;
+}
+
+/* Blog / Tips */
+.blog{
+  margin:40px 20px;
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+.blog-item{
+  background:rgba(255,255,255,0.05);
+  padding:15px;
+  border-radius:5px;
+  transition:transform 0.3s, box-shadow 0.3s;
+}
+.blog-item:hover{
+  transform:scale(1.02);
+  box-shadow:0 0 15px #fff;
+}
+
+/* Social Icons */
 .social{
   position:fixed;
   bottom:20px;
@@ -146,7 +254,33 @@ body{
   box-shadow:0 0 15px #fff;
 }
 
-/* ===== Custom Cursor ===== */
+/* CTA Buttons */
+.cta{
+  position:fixed;
+  left:20px;
+  bottom:20px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  z-index:999;
+}
+.cta button{
+  padding:10px 15px;
+  background:#fff;
+  border:none;
+  color:#000;
+  cursor:pointer;
+  border-radius:5px;
+  font-weight:bold;
+  transition:0.3s;
+}
+.cta button:hover{
+  transform:scale(1.1);
+  background:#25d366;
+  color:#fff;
+}
+
+/* Custom Cursor */
 .cursor{
   position:fixed;
   top:0; left:0;
@@ -178,8 +312,12 @@ body{
   0%{opacity:0; transform:translateY(20px);}
   100%{opacity:1; transform:translateY(0);}
 }
+@keyframes testFade{
+  0%{opacity:0;}
+  100%{opacity:1;}
+}
 
-/* ===== Responsive ===== */
+/* Responsive */
 @media(min-width:768px){
   .gallery img{width:160px;}
   .hero h1{font-size:3.5rem;}
@@ -206,10 +344,57 @@ body{
 <!-- Gallery -->
 <div class="gallery" id="gallery"></div>
 
+<!-- Lightbox -->
+<div id="lightbox" onclick="closeLightbox()">
+  <span>&times;</span>
+  <img id="lightbox-img" src="">
+</div>
+
 <!-- About -->
 <div class="about">
   <h2>About Us</h2>
   <p>We create visuals that move. Professional posters, logos, and creative designs for brands & clients.</p>
+</div>
+
+<!-- Testimonials -->
+<div class="testimonials">
+  <div class="testimonial-slide" id="testimonial-slide">
+    <div class="testimonial">
+      <h3>Client A</h3>
+      <p>"Amazing work! Highly recommend Zyra Graphics."</p>
+    </div>
+    <div class="testimonial">
+      <h3>Client B</h3>
+      <p>"Professional and creative designs delivered on time."</p>
+    </div>
+    <div class="testimonial">
+      <h3>Client C</h3>
+      <p>"Helped our brand look premium and modern."</p>
+    </div>
+  </div>
+</div>
+
+<!-- Featured Projects -->
+<div class="projects">
+  <div class="project-card">
+    <img src="images/1.jpg">
+    <div class="project-overlay">Project 1</div>
+  </div>
+  <div class="project-card">
+    <img src="images/2.jpg">
+    <div class="project-overlay">Project 2</div>
+  </div>
+  <div class="project-card">
+    <img src="images/3.jpg">
+    <div class="project-overlay">Project 3</div>
+  </div>
+</div>
+
+<!-- Blog / Tips -->
+<div class="blog">
+  <div class="blog-item">Design Tip 1: Keep it minimal for impact.</div>
+  <div class="blog-item">Design Tip 2: Use contrast to highlight.</div>
+  <div class="blog-item">Design Tip 3: Consistency is key.</div>
 </div>
 
 <!-- Social Icons -->
@@ -222,11 +407,18 @@ body{
   </a>
 </div>
 
+<!-- CTA Buttons -->
+<div class="cta">
+  <button onclick="window.open('https://wa.me/7385009275')">WhatsApp</button>
+  <button>Hire Me</button>
+  <button>Get a Quote</button>
+</div>
+
 <!-- Custom Cursor -->
 <div class="cursor" id="cursor"></div>
 
 <script>
-// Gallery Sections
+// Sections & Gallery
 const gallery = document.getElementById('gallery');
 const sections = {
   thumbnails:[1,2,3,4,5],
@@ -235,16 +427,27 @@ const sections = {
   logos:[16,17,18,19,20]
 };
 
-// Show section
 function showSection(section){
   gallery.innerHTML='';
   sections[section].forEach(i=>{
     const img=document.createElement('img');
     img.src=`images/${i}.jpg`;
     img.classList.add('show');
+    img.onclick=()=>openLightbox(img.src);
     gallery.appendChild(img);
   });
   window.scrollTo({top:gallery.offsetTop, behavior:'smooth'});
+}
+
+// Lightbox
+const lightbox=document.getElementById('lightbox');
+const lbImg=document.getElementById('lightbox-img');
+function openLightbox(src){
+  lightbox.style.display='flex';
+  lbImg.src=src;
+}
+function closeLightbox(){
+  lightbox.style.display='none';
 }
 
 // Custom Cursor
@@ -264,7 +467,15 @@ for(let i=0;i<40;i++){
   p.style.animationDuration=5+Math.random()*10+'s';
   document.querySelector('.hero').appendChild(p);
 }
-</script>
 
+// Testimonials Slider
+let tIndex=0;
+const tSlide=document.getElementById('testimonial-slide');
+setInterval(()=>{
+  tIndex++;
+  if(tIndex>=tSlide.children.length) tIndex=0;
+  tSlide.style.transform=`translateX(-${tIndex*100}%)`;
+},4000);
+</script>
 </body>
 </html>
