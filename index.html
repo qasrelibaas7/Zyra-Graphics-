@@ -28,6 +28,29 @@ body{
   overflow:hidden;
   padding:20px;
 }
+
+/* Hero Video Background */
+.hero video{
+  position:absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  z-index:-3;
+}
+
+/* Hero Gradient Overlay (optional) */
+.hero::before{
+  content:"";
+  position:absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:linear-gradient(-45deg,#ff3cac,#784ba0,#2b86c5,#ff3cac);
+  background-size:400% 400%;
+  animation:gradientBG 15s ease infinite;
+  opacity:0.5;
+  z-index:-2;
+}
+
 .hero h1{
   font-size:3rem;
   text-shadow:0 0 15px #fff;
@@ -40,37 +63,6 @@ body{
   margin-top:10px;
   opacity:0;
   animation:heroText 2s ease forwards;
-}
-
-/* Hero Gradient & Video Overlay */
-.hero::before{
-  content:"";
-  position:absolute;
-  top:0; left:0;
-  width:100%; height:100%;
-  background:linear-gradient(-45deg,#ff3cac,#784ba0,#2b86c5,#ff3cac);
-  background-size:400% 400%;
-  animation:gradientBG 15s ease infinite;
-  z-index:-2;
-}
-
-/* Optional Video Background */
-.hero video{
-  position:absolute;
-  top:0; left:0;
-  width:100%; height:100%;
-  object-fit:cover;
-  z-index:-3;
-}
-
-/* Floating Particles */
-.particle{
-  position:absolute;
-  width:6px; height:6px;
-  background:#fff;
-  border-radius:50%;
-  opacity:0.6;
-  animation:float 10s linear infinite;
 }
 
 /* Animated SVG Logo */
@@ -109,16 +101,16 @@ body{
   gap:10px;
   margin:20px 10px;
 }
-.gallery img{
+.gallery img, .gallery video{
   width:100%;
   border-radius:5px;
   transition:transform 0.3s ease, box-shadow 0.3s ease;
   opacity:0;
 }
-.gallery img.show{
+.gallery img.show, .gallery video.show{
   animation:imgFade 0.8s forwards;
 }
-.gallery img:hover{
+.gallery img:hover, .gallery video:hover{
   transform:scale(1.05) rotateX(2deg);
   box-shadow:0 0 15px #fff;
 }
@@ -134,8 +126,9 @@ body{
   justify-content:center;
   align-items:center;
   z-index:9999;
+  flex-direction:column;
 }
-#lightbox img{
+#lightbox img, #lightbox video{
   max-width:90%;
   max-height:80%;
   border-radius:5px;
@@ -337,7 +330,7 @@ body{
 
 /* Responsive */
 @media(min-width:768px){
-  .gallery img{width:160px;}
+  .gallery img, .gallery video{width:160px;}
   .hero h1{font-size:3.5rem;}
   .hero p{font-size:1.2rem;}
 }
@@ -347,12 +340,15 @@ body{
 
 <!-- Hero -->
 <div class="hero">
+  <video autoplay muted loop playsinline>
+    <source src="videos/anime.mp4" type="video/mp4">
+  </video>
   <svg id="hero-logo" viewBox="0 0 100 100">
     <circle cx="50" cy="50" r="40" stroke="#fff" stroke-width="5" fill="none"/>
     <text x="50%" y="55%" text-anchor="middle" fill="#fff" font-size="12">Zyra</text>
   </svg>
   <h1>Zyra Graphics</h1>
-  <p>Hi, I'm Umer Takildar — a graphic designer & web developer.</p>
+  <p>Hi, I'm Umer — a graphic designer & web developer.</p>
 
   <!-- Section Buttons -->
   <div class="buttons">
@@ -369,7 +365,7 @@ body{
 <!-- Lightbox -->
 <div id="lightbox" onclick="closeLightbox()">
   <span>&times;</span>
-  <img id="lightbox-img" src="">
+  <div id="lightbox-content"></div>
 </div>
 
 <!-- About -->
@@ -419,9 +415,21 @@ body{
   <div class="blog-item">Design Tip 3: Consistency is key.</div>
 </div>
 
+<!-- Social Icons -->
+<div class="social">
+  <a href="https://wa.me/7385009275" target="_blank" class="whatsapp">
+    <img src="icons/whatsapp.svg" alt="WhatsApp">
+  </a>
+  <a href="https://instagram.com/xxxxxxxxxxxxx" target="_blank" class="instagram">
+    <img src="icons/instagram.svg" alt="Instagram">
+  </a>
+</div>
+
 <!-- CTA Buttons -->
 <div class="cta">
   <button onclick="window.open('https://wa.me/7385009275')">WhatsApp</button>
+  <button>Hire Me</button>
+  <button>Get a Quote</button>
 </div>
 
 <!-- Custom Cursor -->
@@ -440,24 +448,47 @@ const sections = {
 function showSection(section){
   gallery.innerHTML='';
   sections[section].forEach(i=>{
-    const img=document.createElement('img');
-    img.src=`images/${i}.jpg`;
-    img.classList.add('show');
-    img.onclick=()=>openLightbox(img.src);
-    gallery.appendChild(img);
+    if(i<=15){ // images
+      const img=document.createElement('img');
+      img.src=`images/${i}.jpg`;
+      img.classList.add('show');
+      img.onclick=()=>openLightbox(img.src,'img');
+      gallery.appendChild(img);
+    }else{ // videos for example
+      const vid=document.createElement('video');
+      vid.src='videos/anime.mp4';
+      vid.autoplay=true;
+      vid.muted=true;
+      vid.loop=true;
+      vid.classList.add('show');
+      vid.onclick=()=>openLightbox(vid.src,'video');
+      gallery.appendChild(vid);
+    }
   });
   window.scrollTo({top:gallery.offsetTop, behavior:'smooth'});
 }
 
 // Lightbox
 const lightbox=document.getElementById('lightbox');
-const lbImg=document.getElementById('lightbox-img');
-function openLightbox(src){
+const lbContent=document.getElementById('lightbox-content');
+function openLightbox(src,type){
   lightbox.style.display='flex';
-  lbImg.src=src;
+  lbContent.innerHTML='';
+  if(type==='img'){
+    const img=document.createElement('img');
+    img.src=src;
+    lbContent.appendChild(img);
+  }else{
+    const vid=document.createElement('video');
+    vid.src=src;
+    vid.controls=true;
+    vid.autoplay=true;
+    lbContent.appendChild(vid);
+  }
 }
 function closeLightbox(){
   lightbox.style.display='none';
+  lbContent.innerHTML='';
 }
 
 // Custom Cursor
