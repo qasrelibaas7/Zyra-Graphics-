@@ -83,7 +83,7 @@ body {
   color: #ccc;
 }
 
-/* Social Buttons */
+/* Social Buttons with icons */
 .social {
   position: fixed;
   bottom: 20px;
@@ -93,13 +93,26 @@ body {
   gap: 10px;
 }
 .social a {
-  padding: 10px 15px;
-  background: #25d366;
-  color: #fff;
-  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background: #25d366; /* default WhatsApp green */
+  border-radius: 50%;
   text-decoration: none;
-  font-weight: bold;
-  text-align: center;
+  transition: all 0.3s ease;
+}
+.social a.instagram {
+  background: #E1306C; /* Instagram color */
+}
+.social a img {
+  width: 25px;
+  height: 25px;
+  filter: invert(1);
+}
+.social a:hover {
+  transform: scale(1.2);
 }
 
 /* Animations */
@@ -127,8 +140,13 @@ body {
 <div class="hero">
   <h1>Zyra Graphics</h1>
   <p>Hi, I'm Umer — a graphic designer & web developer.</p>
+  
+  <!-- Section Buttons -->
   <div class="buttons">
-    <button onclick="showGallery()">View Gallery</button>
+    <button onclick="showSection('thumbnails')">Thumbnails</button>
+    <button onclick="showSection('roaster')">Roaster Reveal</button>
+    <button onclick="showSection('posters')">Posters</button>
+    <button onclick="showSection('logos')">Logos</button>
   </div>
 </div>
 
@@ -141,26 +159,39 @@ body {
   <p>We create visuals that move. Professional posters, logos, and creative designs for brands & clients.</p>
 </div>
 
-<!-- Social -->
+<!-- Social Buttons -->
 <div class="social">
-  <a href="https://wa.me/7385009275" target="_blank">WhatsApp</a>
-  <a href="https://instagram.com/xxxxxxxxxxxxx" target="_blank">Instagram</a>
+  <a href="https://wa.me/7385009275" target="_blank">
+    <img src="icons/whatsapp.svg" alt="WhatsApp">
+  </a>
+  <a href="https://instagram.com/xxxxxxxxxxxxx" target="_blank" class="instagram">
+    <img src="icons/instagram.svg" alt="Instagram">
+  </a>
 </div>
 
 <script>
+// Single images folder
 const gallery = document.getElementById('gallery');
-const totalImages = 20; // Total images uploaded in /images folder
 
-function showGallery(){
+// Sections mapping (5 images each)
+const sections = {
+  thumbnails: [1,2,3,4,5],
+  roaster:    [6,7,8,9,10],
+  posters:    [11,12,13,14,15],
+  logos:      [16,17,18,19,20]
+};
+
+// Function to show selected section
+function showSection(sectionName){
   gallery.innerHTML = '';
-  for(let i=1; i<=totalImages; i++){
+  sections[sectionName].forEach(i => {
     const img = document.createElement('img');
-    img.src = `images/${i}.jpg`; // images folder ke andar directly
+    img.src = `images/${i}.jpg`; // single images folder
     gallery.appendChild(img);
-  }
+  });
   window.scrollTo({top: gallery.offsetTop, behavior: 'smooth'});
 }
 </script>
 
 </body>
-</html>
+</html></html>
