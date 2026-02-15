@@ -11,147 +11,229 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#000;color:#fff;font-family:Arial,Helvetica,sans-serif;overflow-x:hidden}
 
-/* NAV */
-nav{
-position:fixed;top:0;left:0;width:100%;
-display:flex;justify-content:center;
-gap:20px;padding:10px;
-background:rgba(0,0,0,.6);
-backdrop-filter:blur(10px);
-z-index:99
-}
-nav button{
-background:none;border:1px solid #0ff;
-color:#0ff;padding:6px 14px;
-border-radius:20px;font-size:12px;
-}
-
 /* HERO */
 .hero{
-height:100vh;position:relative;overflow:hidden
+height:100vh;
+position:relative;
+overflow:hidden;
 }
 .hero video{
-width:100%;height:100%;
-object-fit:cover;filter:brightness(.45)
+width:100%;
+height:100%;
+object-fit:cover;
+filter:brightness(.4) contrast(1.2);
+animation:heroZoom 25s infinite alternate ease-in-out;
+}
+@keyframes heroZoom{
+from{transform:scale(1)}
+to{transform:scale(1.15)}
 }
 .hero::after{
-content:"";position:absolute;inset:0;
-background:radial-gradient(circle,transparent,#000 80%)
+content:"";
+position:absolute;
+inset:0;
+background:radial-gradient(circle at center,transparent 40%,#000 85%);
 }
 .hero-text{
-position:absolute;top:50%;left:50%;
+position:absolute;
+top:45%;
+left:50%;
 transform:translate(-50%,-50%);
-text-align:center
+text-align:center;
+animation:textReveal 3s ease forwards;
 }
 .hero-text h1{
 font-family:'Orbitron';
-font-size:52px;letter-spacing:6px;
-animation:glow 3s infinite alternate
+font-size:64px;
+letter-spacing:8px;
+text-shadow:0 0 20px #0ff;
 }
-.hero-text p{opacity:.8;margin-top:10px}
+.hero-text p{
+margin-top:10px;
+opacity:.8;
+font-size:14px;
+}
+@keyframes textReveal{
+from{opacity:0;transform:translate(-50%,-30%)}
+to{opacity:1;transform:translate(-50%,-50%)}
+}
 
-@keyframes glow{
-from{text-shadow:0 0 10px #0ff}
-to{text-shadow:0 0 25px #0ff}
+/* CENTER NAV */
+.center-nav{
+position:absolute;
+bottom:30px;
+left:50%;
+transform:translateX(-50%);
+display:flex;
+gap:14px;
+z-index:10;
+}
+.center-nav button{
+background:transparent;
+border:1px solid #0ff;
+color:#0ff;
+padding:8px 18px;
+border-radius:30px;
+font-size:13px;
+letter-spacing:1px;
+transition:.4s;
+}
+.center-nav button:hover{
+background:#0ff;
+color:#000;
+box-shadow:0 0 20px #0ff;
 }
 
 /* ABOUT */
 .about{
-padding:30px 20px;
-text-align:center;opacity:.9
+padding:25px 20px;
+text-align:center;
+font-size:14px;
+opacity:.85;
+line-height:1.6;
 }
 
 /* SECTIONS */
-.section{display:none;padding:20px}
-.section.active{display:block}
+.section{
+display:none;
+padding:15px;
+}
+.section.active{
+display:block;
+animation:fadeIn 1s ease;
+}
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(20px)}
+to{opacity:1;transform:translateY(0)}
+}
+.section h2{
+text-align:center;
+margin-bottom:10px;
+font-size:18px;
+letter-spacing:2px;
+opacity:.9;
+}
 
+/* GRID */
 .grid{
-display:grid;grid-template-columns:repeat(2,1fr);
-gap:8px
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:8px;
 }
 .card{
-overflow:hidden;border-radius:12px
+overflow:hidden;
+border-radius:14px;
+position:relative;
 }
 .card img{
-width:100%;transition:1s
+width:100%;
+display:block;
+transition:1.2s;
+filter:brightness(.9);
 }
 .card:hover img{
 transform:scale(1.2);
-filter:brightness(1.3)
+filter:brightness(1.3);
 }
 
 /* LIGHTBOX */
 #lightbox{
-position:fixed;inset:0;
-background:rgba(0,0,0,.95);
-display:none;align-items:center;justify-content:center
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.97);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:99;
 }
 #lightbox img{
-max-width:95%;max-height:95%
+max-width:95%;
+max-height:95%;
+animation:zoomIn .5s ease;
+}
+@keyframes zoomIn{
+from{transform:scale(.7);opacity:0}
+to{transform:scale(1);opacity:1}
 }
 
 /* SOCIAL */
 .social{
-position:fixed;right:10px;bottom:10px;
-display:flex;flex-direction:column;gap:10px
+position:fixed;
+right:12px;
+bottom:12px;
+display:flex;
+flex-direction:column;
+gap:10px;
+z-index:50;
 }
 .icon{
-width:46px;height:46px;
-border-radius:50%;background:#0ff;
-display:flex;align-items:center;justify-content:center;
-font-size:22px;color:#000;
-animation:pulse 2s infinite
+width:48px;
+height:48px;
+border-radius:50%;
+background:#0ff;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:22px;
+color:#000;
+animation:pulse 2s infinite;
 }
 @keyframes pulse{
 0%{box-shadow:0 0 0 0 #0ff88}
-100%{box-shadow:0 0 0 15px transparent}
+100%{box-shadow:0 0 0 16px transparent}
 }
 
 /* DESKTOP */
 @media(min-width:700px){
 .grid{grid-template-columns:repeat(4,1fr)}
-.hero-text h1{font-size:72px}
+.hero-text h1{font-size:80px}
+.about{font-size:15px}
 }
 </style>
 </head>
 
 <body>
 
-<nav>
-<button onclick="show('thumb')">Thumbnails</button>
-<button onclick="show('poster')">Posters</button>
-<button onclick="show('roster')">Roster</button>
-<button onclick="show('logo')">Logos</button>
-</nav>
-
 <div class="hero">
 <video autoplay muted loop playsinline>
 <source src="videos/anime.mp4">
 </video>
+
 <div class="hero-text">
 <h1>Zyra Graphics</h1>
 <p>My name is Umer and I am a graphic designer & web developer</p>
 </div>
+
+<div class="center-nav">
+<button onclick="show('thumb')">Thumbnails</button>
+<button onclick="show('poster')">Posters</button>
+<button onclick="show('roster')">Roster</button>
+<button onclick="show('logo')">Logos</button>
+</div>
 </div>
 
 <div class="about">
-Professional creative studio focused on cinematic visuals,
-branding, motion and interactive web experiences.
+Professional creative studio focused on cinematic visuals, branding,
+motion design and interactive web experiences.
 </div>
 
 <div class="section active" id="thumb">
+<h2>Thumbnails</h2>
 <div class="grid"></div>
 </div>
 
 <div class="section" id="poster">
+<h2>Posters</h2>
 <div class="grid"></div>
 </div>
 
 <div class="section" id="roster">
+<h2>Roster Reveal</h2>
 <div class="grid"></div>
 </div>
 
 <div class="section" id="logo">
+<h2>Logos</h2>
 <div class="grid"></div>
 </div>
 
