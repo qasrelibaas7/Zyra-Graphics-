@@ -27,8 +27,9 @@ body{
 }
 .hero video{
   position:absolute;
-  top:0;left:0;
-  width:100%;height:100%;
+  inset:0;
+  width:100%;
+  height:100%;
   object-fit:cover;
   z-index:-2;
 }
@@ -36,7 +37,7 @@ body{
   content:"";
   position:absolute;
   inset:0;
-  background:rgba(0,0,0,0.6);
+  background:rgba(0,0,0,0.65);
   z-index:-1;
 }
 .hero h1{
@@ -97,11 +98,12 @@ body{
   max-width:90%;
   max-height:90%;
 }
-#lightbox span{
+#lightbox .close{
   position:absolute;
   top:20px;right:30px;
-  font-size:30px;
+  font-size:32px;
   cursor:pointer;
+  user-select:none;
 }
 
 /* ABOUT */
@@ -137,8 +139,8 @@ body{
   box-shadow:0 0 20px #fff;
 }
 .social svg{
-  width:28px;
-  height:28px;
+  width:26px;
+  height:26px;
   fill:white;
 }
 
@@ -152,7 +154,7 @@ body{
 
 <!-- HERO -->
 <div class="hero">
-  <video autoplay muted loop playsinline>
+  <video autoplay muted loop playsinline poster="images/hero.jpg">
     <source src="videos/anime.mp4" type="video/mp4">
   </video>
   <h1>Zyra Graphics</h1>
@@ -170,8 +172,8 @@ body{
 <div class="gallery" id="gallery"></div>
 
 <!-- LIGHTBOX -->
-<div id="lightbox" onclick="closeLB()">
-  <span>&times;</span>
+<div id="lightbox">
+  <div class="close" onclick="closeLB()">✕</div>
   <img id="lbImg">
 </div>
 
@@ -181,19 +183,19 @@ body{
   <p>I create premium visuals for brands — posters, logos, thumbnails & web designs.</p>
 </div>
 
-<!-- SOCIAL ICONS (PURE SVG) -->
+<!-- SOCIAL -->
 <div class="social">
+  <!-- WhatsApp -->
   <a href="https://wa.me/7385009275" target="_blank">
-    <!-- WhatsApp SVG -->
-    <svg viewBox="0 0 448 512">
-      <path d="M380.9 97.1C339-3.9 227.5-33.1 136.5 8.8 55.6 45.5 13.8 130.6 32.2 217.3L0 480l271.4-69.5c69.7 12.6 138.8-17.7 180.6-75.7 43.4-59.5 48.9-138.3 14.1-198.7z"/>
+    <svg viewBox="0 0 32 32">
+      <path d="M16 3C9.4 3 4 8.1 4 14.4c0 2.6.9 5.1 2.5 7.1L4 29l7.8-2.4c1.9 1 4 1.5 6.2 1.5 6.6 0 12-5.1 12-11.4C30 8.1 24.6 3 16 3zm6.4 15.8c-.3.8-1.6 1.5-2.2 1.6-.6.1-1.3.2-4.3-.9-3.6-1.2-5.9-4.1-6.1-4.4-.2-.3-1.4-1.9-1.4-3.6s.9-2.6 1.3-3c.3-.4.7-.5 1-.5h.7c.2 0 .5-.1.8.6.3.7 1.1 2.6 1.2 2.8.1.2.1.4 0 .6-.1.2-.2.4-.4.6-.2.2-.4.4-.6.6-.2.2-.4.4-.2.8.2.4.9 1.5 2 2.4 1.4 1.2 2.6 1.6 3 .1.4-.2.6-.3.8-.6.2-.3.9-1.1 1.2-1.4.3-.3.5-.3.8-.2.3.1 2 .9 2.3 1 .3.1.5.2.6.4.1.2.1.8-.2 1.6z"/>
     </svg>
   </a>
+
+  <!-- Instagram -->
   <a href="https://instagram.com/xxxxxxxxxxxxx" target="_blank">
-    <!-- Instagram SVG -->
-    <svg viewBox="0 0 448 512">
-      <path d="M224 202.7A53.3 53.3 0 1 0 277.3 256 53.38 53.38 0 0 0 224 202.7z"/>
-      <path d="M448 80v352a80 80 0 0 1-80 80H80a80 80 0 0 1-80-80V80a80 80 0 0 1 80-80h288a80 80 0 0 1 80 80zM224 338a82 82 0 1 1 82-82 82.09 82.09 0 0 1-82 82zm85.4-148.1a19.4 19.4 0 1 1 19.4-19.4 19.42 19.42 0 0 1-19.4 19.4z"/>
+    <svg viewBox="0 0 24 24">
+      <path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm10 2c1.7 0 3 1.3 3 3v10c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3h10zm-5 3.2A4.8 4.8 0 1 0 16.8 12 4.8 4.8 0 0 0 12 7.2zm0 7.8a3 3 0 1 1 3-3 3 3 0 0 1-3 3zm4.9-8.9a1.1 1.1 0 1 0 1.1 1.1 1.1 1.1 0 0 0-1.1-1.1z"/>
     </svg>
   </a>
 </div>
@@ -207,16 +209,22 @@ const sections = {
   thumbnails:[1,2,3,4,5],
   roaster:[6,7,8,9,10],
   posters:[11,12,13,14,15],
-  logos:[16,17,18,19,20] // FIXED: logos now only images
+  logos:[16,17,18,19,20]
 };
+
+function createImg(i){
+  let img=document.createElement("img");
+  img.loading="lazy";
+  img.src=`images/${i}.jpg`;
+  img.onerror=()=>img.src="images/hero.jpg";
+  img.onclick=()=>openLB(img.src);
+  return img;
+}
 
 function showSection(sec){
   gallery.innerHTML="";
   sections[sec].forEach(i=>{
-    let img=document.createElement("img");
-    img.src=`images/${i}.jpg`;
-    img.onclick=()=>openLB(img.src);
-    gallery.appendChild(img);
+    gallery.appendChild(createImg(i));
   });
   window.scrollTo({top:gallery.offsetTop,behavior:"smooth"});
 }
@@ -228,6 +236,9 @@ function openLB(src){
 function closeLB(){
   lb.style.display="none";
 }
+
+/* Default load */
+showSection("thumbnails");
 </script>
 </body>
 </html>
