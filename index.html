@@ -4,7 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Zyra Graphics - Ultra Pro Portfolio</title>
-<style>
+<style>.site-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
 /* ===== Body ===== */
 body{
   margin:0;
@@ -337,6 +340,7 @@ body{
 </style>
 </head>
 <body>
+  <div class="site-wrapper">
 
 <!-- Hero -->
 <div class="hero">
@@ -425,13 +429,6 @@ body{
   </a>
 </div>
 
-<!-- CTA Buttons -->
-<div class="cta">
-  <button onclick="window.open('https://wa.me/7385009275')">WhatsApp</button>
-  <button>Hire Me</button>
-  <button>Get a Quote</button>
-</div>
-
 <!-- Custom Cursor -->
 <div class="cursor" id="cursor"></div>
 
@@ -518,5 +515,6 @@ setInterval(()=>{
   tSlide.style.transform=`translateX(-${tIndex*100}%)`;
 },4000);
 </script>
+</div> <!-- site-wrapper close -->
 </body>
 </html>
