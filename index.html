@@ -3,455 +3,350 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zyra Graphics | Premium Creative Portfolio</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Syncopate:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Zyra Graphics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-color: #050505;
-            --accent-color: #00f2ff;
-            --accent-glow: rgba(0, 242, 255, 0.5);
-            --text-main: #ffffff;
-            --text-dim: rgba(255, 255, 255, 0.6);
-            --transition-smooth: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            cursor: crosshair;
         }
-
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: 'Inter', sans-serif;
+            font-family: 'Orbitron', sans-serif;
+            background: #000;
+            color: #fff;
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
         }
-
-        /* --- HERO SECTION --- */
         .hero {
             position: relative;
             height: 100vh;
-            width: 100%;
-            overflow: hidden;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: center;
+            overflow: hidden;
         }
-
-        .video-background {
+        .hero video {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -2;
             object-fit: cover;
-            animation: subtleZoom 20s infinite alternate ease-in-out;
+            z-index: -1;
+            animation: zoom 20s infinite alternate ease-in-out;
         }
-
-        @keyframes subtleZoom {
+        @keyframes zoom {
             from { transform: scale(1); }
-            to { transform: scale(1.15); }
+            to { transform: scale(1.1); }
         }
-
-        .overlay {
+        .hero .overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(5,5,5,1) 90%);
-            z-index: -1;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.8));
+            z-index: 0;
         }
-
-        .hero-content {
-            opacity: 0;
-            transform: translateY(30px);
-            animation: revealUp 1.2s forwards 0.5s;
+        .hero .brand {
+            z-index: 1;
+            text-align: center;
+            animation: reveal 2s ease-out;
         }
-
-        @keyframes revealUp {
+        @keyframes reveal {
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
-        .hero-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(3rem, 10vw, 6rem);
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 12px;
-            margin-bottom: 10px;
-            background: linear-gradient(to bottom, #fff 40%, #555);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .hero-subtitle {
-            font-family: 'Syncopate', sans-serif;
-            font-size: clamp(0.7rem, 2vw, 1rem);
-            letter-spacing: 4px;
-            color: var(--accent-color);
-            text-transform: uppercase;
+        .hero .brand h1 {
+            font-size: 4rem;
             font-weight: 700;
+            text-shadow: 0 0 20px #00ffff;
+            margin-bottom: 1rem;
         }
-
-        /* --- CENTER NAVIGATION --- */
-        .nav-container {
+        .hero .brand p {
+            font-size: 1.5rem;
+            font-weight: 400;
+            text-shadow: 0 0 10px #ff00ff;
+        }
+        .nav {
             position: absolute;
-            bottom: 50px;
+            bottom: 5%;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 15px;
-            z-index: 100;
-            padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50px;
+            gap: 2rem;
+            z-index: 1;
         }
-
-        .nav-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-dim);
+        .nav button {
+            background: rgba(0,0,0,0.5);
+            border: 2px solid #00ffff;
+            color: #00ffff;
+            padding: 0.5rem 1rem;
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            padding: 12px 24px;
-            border-radius: 30px;
-            transition: var(--transition-smooth);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 5px;
         }
-
-        .nav-btn:hover, .nav-btn.active {
-            color: var(--text-main);
-            background: rgba(255, 255, 255, 0.1);
-            text-shadow: 0 0 10px var(--accent-glow);
-            box-shadow: inset 0 0 10px rgba(255,255,255,0.05);
+        .nav button:hover {
+            background: #00ffff;
+            color: #000;
+            box-shadow: 0 0 20px #00ffff;
         }
-
-        /* --- ABOUT SECTION --- */
-        .about-section {
-            padding: 100px 20px;
+        .about {
+            padding: 4rem 2rem;
+            text-align: center;
+            background: #111;
+            animation: fadeIn 1s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .about h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px #ff00ff;
+        }
+        .about p {
+            font-size: 1.2rem;
+            line-height: 1.6;
             max-width: 800px;
             margin: 0 auto;
-            text-align: center;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: var(--transition-smooth);
         }
-
-        .about-section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .about-section h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            margin-bottom: 25px;
-            letter-spacing: 5px;
-            color: var(--accent-color);
-        }
-
-        .about-section p {
-            line-height: 1.8;
-            font-size: 1.1rem;
-            color: var(--text-dim);
-            font-weight: 300;
-        }
-
-        /* --- PORTFOLIO SYSTEM --- */
-        .portfolio-container {
-            width: 100%;
-            padding: 0 5% 100px;
-            min-height: 60vh;
-        }
-
-        .section-wrapper {
+        .portfolio {
             display: none;
-            animation: sectionFade 0.8s ease forwards;
+            padding: 4rem 2rem;
+            background: #000;
         }
-
-        @keyframes sectionFade {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .section-wrapper.active {
+        .portfolio.active {
             display: block;
+            animation: fadeIn 1s ease-out;
         }
-
-        .section-title {
-            font-family: 'Orbitron', sans-serif;
+        .portfolio h2 {
             text-align: center;
             font-size: 2.5rem;
-            margin-bottom: 50px;
-            letter-spacing: 10px;
-            text-transform: uppercase;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 20px #00ffff;
         }
-
-        .grid-layout {
+        .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-            max-width: 1400px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
             margin: 0 auto;
         }
-
         .card {
             position: relative;
-            aspect-ratio: 16/9;
             overflow: hidden;
-            border-radius: 4px;
-            background: #111;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: var(--transition-smooth);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
         }
-
         .card:hover {
-            transform: scale(1.03);
-            border-color: var(--accent-color);
-            box-shadow: 0 10px 30px rgba(0, 242, 255, 0.15);
+            transform: scale(1.05);
         }
-
         .card img {
             width: 100%;
-            height: 100%;
+            height: 200px;
             object-fit: cover;
-            filter: grayscale(30%) contrast(1.1);
-            transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: transform 0.3s ease;
         }
-
         .card:hover img {
             transform: scale(1.1);
-            filter: grayscale(0%) contrast(1.1);
         }
-
-        /* --- LIGHTBOX --- */
-        #lightbox {
+        .lightbox {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(5,5,5,0.98);
-            z-index: 1000;
+            background: rgba(0,0,0,0.9);
             display: none;
             justify-content: center;
             align-items: center;
-            padding: 40px;
+            z-index: 1000;
+            animation: zoomIn 0.3s ease;
         }
-
-        #lightbox img {
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .lightbox img {
             max-width: 90%;
-            max-height: 90vh;
-            object-fit: contain;
-            box-shadow: 0 0 50px rgba(0,0,0,0.5);
-            transform: scale(0.9);
-            transition: transform 0.5s ease;
+            max-height: 90%;
+            border-radius: 10px;
         }
-
-        #lightbox.open img {
-            transform: scale(1);
+        .lightbox .close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
         }
-
-        /* --- FLOATING SOCIALS --- */
-        .social-dock {
+        .social {
             position: fixed;
-            bottom: 40px;
-            right: 40px;
+            bottom: 20px;
+            right: 20px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
-            z-index: 1000;
+            gap: 1rem;
+            z-index: 100;
         }
-
-        .social-icon {
-            width: 55px;
-            height: 55px;
+        .social a {
+            display: block;
+            width: 50px;
+            height: 50px;
+            background: #00ffff;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: #fff;
-            text-decoration: none;
-            transition: var(--transition-smooth);
-            animation: pulse 3s infinite;
-        }
-
-        .social-icon:nth-child(2) {
-            animation-delay: 1.5s;
-        }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(0, 242, 255, 0.4); }
-            70% { box-shadow: 0 0 0 15px rgba(0, 242, 255, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(0, 242, 255, 0); }
-        }
-
-        .social-icon:hover {
-            background: var(--accent-color);
             color: #000;
-            transform: translateY(-5px);
+            text-decoration: none;
+            animation: pulse 2s infinite;
+            transition: transform 0.3s ease;
         }
-
-        .social-icon svg {
-            width: 24px;
-            height: 24px;
-            fill: currentColor;
+        .social a:hover {
+            transform: scale(1.1);
         }
-
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0,255,255,0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(0,255,255,0); }
+            100% { box-shadow: 0 0 0 0 rgba(0,255,255,0); }
+        }
         @media (max-width: 768px) {
-            .nav-container {
-                width: 90%;
-                overflow-x: auto;
-                bottom: 20px;
+            .hero .brand h1 {
+                font-size: 2.5rem;
             }
-            .hero-title { letter-spacing: 5px; }
-            .grid-layout { grid-template-columns: 1fr; }
-            .social-dock { bottom: 80px; right: 20px; }
+            .hero .brand p {
+                font-size: 1.2rem;
+            }
+            .nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .nav button {
+                padding: 0.5rem;
+                font-size: 0.9rem;
+            }
+            .about {
+                padding: 2rem 1rem;
+            }
+            .portfolio {
+                padding: 2rem 1rem;
+            }
+            .grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1rem;
+            }
+            .card img {
+                height: 150px;
+            }
         }
     </style>
 </head>
 <body>
-
     <section class="hero">
-        <video class="video-background" autoplay loop muted playsinline>
+        <video autoplay loop muted>
             <source src="videos/anime.mp4" type="video/mp4">
         </video>
         <div class="overlay"></div>
-        
-        <div class="hero-content">
-            <p class="hero-subtitle">Visual Experience Architect</p>
-            <h1 class="hero-title">Zyra Graphics</h1>
-            <p class="hero-subtitle">By Umer — Designer & Developer</p>
+        <div class="brand">
+            <h1>Zyra Graphics</h1>
+            <p>My name is Umer and I am a graphic designer & web developer</p>
         </div>
-
-        <nav class="nav-container">
-            <button class="nav-btn active" onclick="showSection('thumbnails', this)">Thumbnails</button>
-            <button class="nav-btn" onclick="showSection('posters', this)">Posters</button>
-            <button class="nav-btn" onclick="showSection('roster', this)">Roster</button>
-            <button class="nav-btn" onclick="showSection('logos', this)">Logos</button>
+        <nav class="nav">
+            <button id="btn-thumbnails">Thumbnails</button>
+            <button id="btn-posters">Posters</button>
+            <button id="btn-roster">Roster</button>
+            <button id="btn-logos">Logos</button>
         </nav>
     </section>
-
-    <section class="about-section" id="about">
-        <h2>THE VISION</h2>
-        <p>
-            Blending the aggressive aesthetics of cyberpunk culture with the precision of modern UI/UX engineering. 
-            I create high-impact visual narratives for creators and brands who refuse to be ignored. 
-            Welcome to the digital frontier.
-        </p>
+    <section class="about">
+        <h2>About Me</h2>
+        <p>I am a passionate graphic designer and web developer with a keen eye for detail and a love for creating visually stunning experiences. With years of experience in the industry, I specialize in crafting unique designs that blend creativity with functionality. My work spans across various mediums, from digital art to web interfaces, always aiming to deliver premium quality that captivates and engages audiences.</p>
     </section>
-
-    <main class="portfolio-container">
-        <div id="thumbnails" class="section-wrapper active">
-            <h2 class="section-title">Thumbnails</h2>
-            <div class="grid-layout" id="grid-thumbnails"></div>
-        </div>
-
-        <div id="posters" class="section-wrapper">
-            <h2 class="section-title">Posters</h2>
-            <div class="grid-layout" id="grid-posters"></div>
-        </div>
-
-        <div id="roster" class="section-wrapper">
-            <h2 class="section-title">Roster Reveal</h2>
-            <div class="grid-layout" id="grid-roster"></div>
-        </div>
-
-        <div id="logos" class="section-wrapper">
-            <h2 class="section-title">Logos</h2>
-            <div class="grid-layout" id="grid-logos"></div>
-        </div>
-    </main>
-
-    <div id="lightbox" onclick="this.style.display='none'">
-        <img src="" alt="Zoomed view">
+    <section id="thumbnails" class="portfolio">
+        <h2>Thumbnails</h2>
+        <div class="grid" id="thumbnails-grid"></div>
+    </section>
+    <section id="posters" class="portfolio">
+        <h2>Posters</h2>
+        <div class="grid" id="posters-grid"></div>
+    </section>
+    <section id="roster" class="portfolio">
+        <h2>Roster</h2>
+        <div class="grid" id="roster-grid"></div>
+    </section>
+    <section id="logos" class="portfolio">
+        <h2>Logos</h2>
+        <div class="grid" id="logos-grid"></div>
+    </section>
+    <div class="lightbox" id="lightbox">
+        <span class="close" id="close-lightbox">&times;</span>
+        <img id="lightbox-img" src="" alt="">
     </div>
-
-    <div class="social-dock">
-        <a href="https://instagram.com" class="social-icon" target="_blank">
-            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.791-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.209-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    <div class="social">
+        <a href="https://instagram.com" target="_blank">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+            </svg>
         </a>
-        <a href="https://wa.me/yournumber" class="social-icon" target="_blank">
-            <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        <a href="https://wa.me/" target="_blank">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+            </svg>
         </a>
     </div>
-
     <script>
-        // Image System Mapping
-        const sections = {
-            'thumbnails': [1, 5],
-            'posters': [6, 10],
-            'roster': [11, 15],
-            'logos': [16, 20]
-        };
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = ['thumbnails', 'posters', 'roster', 'logos'];
+            const buttons = {
+                'btn-thumbnails': 'thumbnails',
+                'btn-posters': 'posters',
+                'btn-roster': 'roster',
+                'btn-logos': 'logos'
+            };
+            const grids = {
+                thumbnails: document.getElementById('thumbnails-grid'),
+                posters: document.getElementById('posters-grid'),
+                roster: document.getElementById('roster-grid'),
+                logos: document.getElementById('logos-grid')
+            };
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const closeLightbox = document.getElementById('close-lightbox');
 
-        function initPortfolio() {
-            for (const [key, range] of Object.entries(sections)) {
-                const grid = document.getElementById(`grid-${key}`);
-                for (let i = range[0]; i <= range[1]; i++) {
+            // Load images
+            function loadImages(section, start, end) {
+                const grid = grids[section];
+                grid.innerHTML = '';
+                for (let i = start; i <= end; i++) {
                     const card = document.createElement('div');
                     card.className = 'card';
-                    card.innerHTML = `<img src="images/${i}.jpg" alt="Work ${i}" loading="lazy">`;
-                    card.onclick = () => openLightbox(`images/${i}.jpg`);
+                    const img = document.createElement('img');
+                    img.src = `images/${i}.jpg`;
+                    img.alt = `${section} ${i}`;
+                    img.addEventListener('click', () => openLightbox(img.src));
+                    card.appendChild(img);
                     grid.appendChild(card);
                 }
             }
-        }
 
-        function showSection(id, btn) {
-            document.querySelectorAll('.section-wrapper').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            
-            document.getElementById(id).classList.add('active');
-            btn.classList.add('active');
-            
-            window.scrollTo({
-                top: document.querySelector('.portfolio-container').offsetTop - 50,
-                behavior: 'smooth'
-            });
-        }
+            loadImages('thumbnails', 1, 5);
+            loadImages('posters', 6, 10);
+            loadImages('roster', 11, 15);
+            loadImages('logos', 16, 20);
 
-        function openLightbox(src) {
-            const lb = document.getElementById('lightbox');
-            const img = lb.querySelector('img');
-            img.src = src;
-            lb.style.display = 'flex';
-            setTimeout(() => lb.classList.add('open'), 10);
-        }
-
-        // About Section Scroll Reveal
-        window.addEventListener('scroll', () => {
-            const about = document.getElementById('about');
-            const pos = about.getBoundingClientRect().top;
-            if (pos < window.innerHeight * 0.85) {
-                about.classList.add('visible');
-            }
-        });
-
-        document.getElementById('lightbox').onclick = function() {
-            this.classList.remove('open');
-            setTimeout(() => this.style.display = 'none', 500);
-        };
-
-        window.onload = initPortfolio;
-    </script>
-</body>
-</html>
-
-  
+            // Navigation
+            Object.keys(buttons).forEach(btnId => {
+                document.getElementById(btnId).addEventListener('click', function() {
+                    sections.forEach(sec => {
+                        const el = document.getElementById(sec);
+                        if (sec === buttons[btnId]) {
+                            el.classList.add('active');
+                        } else {
+                            el
